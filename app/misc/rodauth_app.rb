@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RodauthApp < Rodauth::Rails::App
   # primary configuration
   configure RodauthMain
@@ -6,11 +8,11 @@ class RodauthApp < Rodauth::Rails::App
   # configure RodauthAdmin, :admin
 
   # Update Auth Casing
-  plugin :json_parser, parser: lambda {|json|
-    JSON.parse(json).deep_transform_keys(&:underscore) 
+  plugin :json_parser, parser: lambda { |json|
+    JSON.parse(json).deep_transform_keys(&:underscore)
   }
-  plugin :json, serializer: lambda {|hash|
-    hash.stringify_keys.deep_transform_keys {|k| k.underscore.camelize(:lower) }.to_json 
+  plugin :json, serializer: lambda { |hash|
+    hash.stringify_keys.deep_transform_keys { |k| k.underscore.camelize(:lower) }.to_json
   }
 
   route do |r|
