@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class RodauthMain < Rodauth::Rails::Auth
   configure do
     # List of authentication features that are loaded.
     enable :create_account, :verify_account, :verify_account_grace_period,
-      :login, :logout, :remember, :json,
-      :reset_password, :change_password, :change_password_notify,
-      :change_login, :verify_login_change, :close_account
+           :login, :logout, :remember, :json,
+           :reset_password, :change_password, :change_password_notify,
+           :change_login, :verify_login_change, :close_account
 
     # See the Rodauth documentation for the list of available config options:
     # http://rodauth.jeremyevans.net/documentation.html
@@ -19,7 +21,7 @@ class RodauthMain < Rodauth::Rails::Auth
     only_json? true
 
     # Route Prefix
-    prefix { "/auth" }
+    prefix { '/auth' }
 
     # Handle login and password confirmation fields on the client side.
     # require_password_confirmation? false
@@ -104,7 +106,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # Extend user's remember period when remembered via a cookie
     extend_remember_deadline? true
 
-    password_confirm_param { "password_confirmation" }
+    password_confirm_param { 'password_confirmation' }
 
     # ==> Hooks
     # Validate custom fields in the create account form.
@@ -120,12 +122,12 @@ class RodauthMain < Rodauth::Rails::Auth
 
     # Validate custom fields in the create account form.
     before_create_account do
-      throw_error_status(422, "user_name", "must be present") if param("user_name").empty?
+      throw_error_status(422, 'user_name', 'must be present') if param('user_name').empty?
     end
 
     after_create_account do
       account = Account.find(account_id)
-      account.update(user_name: param("user_name"))
+      account.update(user_name: param('user_name'))
       json_response.merge!(user: account.as_json)
     end
 

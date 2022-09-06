@@ -1,7 +1,10 @@
-class ApplicationController < ActionController::API
-    private
+# frozen_string_literal: true
 
-    def authenticate
-      rodauth.require_authentication # redirect to login page if not authenticated
-    end
+# Application Controller
+class ApplicationController < ActionController::API
+  private
+
+  def authenticate
+    rodauth.require_authentication # redirect to login page if not authenticated
+  end
 end
