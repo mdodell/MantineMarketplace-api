@@ -26,5 +26,9 @@ module MantineMarketplaceApi
     config.session_store :cookie_store, key: '_mantine_marketplace_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
+
+    # To ensure properties are sent back with proper casing
+    rails_routes = -> (env) { env['PATH_INFO'].match(/^\/rails/) }
+    config.middleware.use OliveBranch::Middleware, inflection: "camel", exclude_params: rails_routes, exclude_response: rails_routes
   end
 end
